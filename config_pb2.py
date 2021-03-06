@@ -19,24 +19,24 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0c\x63onfig.proto\"\x1c\n\x0cHelloRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x1d\n\nHelloReply\x12\x0f\n\x07message\x18\x01 \x01(\t2b\n\x07Greeter\x12(\n\x08SayHello\x12\r.HelloRequest\x1a\x0b.HelloReply\"\x00\x12-\n\rSayHelloAgain\x12\r.HelloRequest\x1a\x0b.HelloReply\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x0c\x63onfig.proto\"\x1b\n\tRmvWorker\x12\x0e\n\x06\x61mount\x18\x01 \x01(\r\"-\n\tCreateJob\x12\x13\n\x0bprogramName\x18\x01 \x01(\t\x12\x0b\n\x03url\x18\x02 \x01(\t\"\x18\n\x05Reply\x12\x0f\n\x07message\x18\x01 \x01(\t2\x96\x01\n\x0b\x43omunicator\x12\x1d\n\tAddWorker\x12\x06.Reply\x1a\x06.Reply\"\x00\x12$\n\x0cRemoveWorker\x12\n.RmvWorker\x1a\x06.Reply\"\x00\x12\x1e\n\nListWorker\x12\x06.Reply\x1a\x06.Reply\"\x00\x12\"\n\nSubmitTask\x12\n.CreateJob\x1a\x06.Reply\"\x00\x62\x06proto3'
 )
 
 
 
 
-_HELLOREQUEST = _descriptor.Descriptor(
-  name='HelloRequest',
-  full_name='HelloRequest',
+_RMVWORKER = _descriptor.Descriptor(
+  name='RmvWorker',
+  full_name='RmvWorker',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='HelloRequest.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='amount', full_name='RmvWorker.amount', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -53,20 +53,59 @@ _HELLOREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=16,
-  serialized_end=44,
+  serialized_end=43,
 )
 
 
-_HELLOREPLY = _descriptor.Descriptor(
-  name='HelloReply',
-  full_name='HelloReply',
+_CREATEJOB = _descriptor.Descriptor(
+  name='CreateJob',
+  full_name='CreateJob',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='message', full_name='HelloReply.message', index=0,
+      name='programName', full_name='CreateJob.programName', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='url', full_name='CreateJob.url', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=45,
+  serialized_end=90,
+)
+
+
+_REPLY = _descriptor.Descriptor(
+  name='Reply',
+  full_name='Reply',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='message', full_name='Reply.message', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -84,63 +123,91 @@ _HELLOREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=46,
-  serialized_end=75,
+  serialized_start=92,
+  serialized_end=116,
 )
 
-DESCRIPTOR.message_types_by_name['HelloRequest'] = _HELLOREQUEST
-DESCRIPTOR.message_types_by_name['HelloReply'] = _HELLOREPLY
+DESCRIPTOR.message_types_by_name['RmvWorker'] = _RMVWORKER
+DESCRIPTOR.message_types_by_name['CreateJob'] = _CREATEJOB
+DESCRIPTOR.message_types_by_name['Reply'] = _REPLY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-HelloRequest = _reflection.GeneratedProtocolMessageType('HelloRequest', (_message.Message,), {
-  'DESCRIPTOR' : _HELLOREQUEST,
+RmvWorker = _reflection.GeneratedProtocolMessageType('RmvWorker', (_message.Message,), {
+  'DESCRIPTOR' : _RMVWORKER,
   '__module__' : 'config_pb2'
-  # @@protoc_insertion_point(class_scope:HelloRequest)
+  # @@protoc_insertion_point(class_scope:RmvWorker)
   })
-_sym_db.RegisterMessage(HelloRequest)
+_sym_db.RegisterMessage(RmvWorker)
 
-HelloReply = _reflection.GeneratedProtocolMessageType('HelloReply', (_message.Message,), {
-  'DESCRIPTOR' : _HELLOREPLY,
+CreateJob = _reflection.GeneratedProtocolMessageType('CreateJob', (_message.Message,), {
+  'DESCRIPTOR' : _CREATEJOB,
   '__module__' : 'config_pb2'
-  # @@protoc_insertion_point(class_scope:HelloReply)
+  # @@protoc_insertion_point(class_scope:CreateJob)
   })
-_sym_db.RegisterMessage(HelloReply)
+_sym_db.RegisterMessage(CreateJob)
+
+Reply = _reflection.GeneratedProtocolMessageType('Reply', (_message.Message,), {
+  'DESCRIPTOR' : _REPLY,
+  '__module__' : 'config_pb2'
+  # @@protoc_insertion_point(class_scope:Reply)
+  })
+_sym_db.RegisterMessage(Reply)
 
 
 
-_GREETER = _descriptor.ServiceDescriptor(
-  name='Greeter',
-  full_name='Greeter',
+_COMUNICATOR = _descriptor.ServiceDescriptor(
+  name='Comunicator',
+  full_name='Comunicator',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=77,
-  serialized_end=175,
+  serialized_start=119,
+  serialized_end=269,
   methods=[
   _descriptor.MethodDescriptor(
-    name='SayHello',
-    full_name='Greeter.SayHello',
+    name='AddWorker',
+    full_name='Comunicator.AddWorker',
     index=0,
     containing_service=None,
-    input_type=_HELLOREQUEST,
-    output_type=_HELLOREPLY,
+    input_type=_REPLY,
+    output_type=_REPLY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='SayHelloAgain',
-    full_name='Greeter.SayHelloAgain',
+    name='RemoveWorker',
+    full_name='Comunicator.RemoveWorker',
     index=1,
     containing_service=None,
-    input_type=_HELLOREQUEST,
-    output_type=_HELLOREPLY,
+    input_type=_RMVWORKER,
+    output_type=_REPLY,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ListWorker',
+    full_name='Comunicator.ListWorker',
+    index=2,
+    containing_service=None,
+    input_type=_REPLY,
+    output_type=_REPLY,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='SubmitTask',
+    full_name='Comunicator.SubmitTask',
+    index=3,
+    containing_service=None,
+    input_type=_CREATEJOB,
+    output_type=_REPLY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
 ])
-_sym_db.RegisterServiceDescriptor(_GREETER)
+_sym_db.RegisterServiceDescriptor(_COMUNICATOR)
 
-DESCRIPTOR.services_by_name['Greeter'] = _GREETER
+DESCRIPTOR.services_by_name['Comunicator'] = _COMUNICATOR
 
 # @@protoc_insertion_point(module_scope)

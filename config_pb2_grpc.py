@@ -5,9 +5,8 @@ import grpc
 import config_pb2 as config__pb2
 
 
-class GreeterStub(object):
-    """The greeting service definition.
-    """
+class ComunicatorStub(object):
+    """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
         """Constructor.
@@ -15,62 +14,90 @@ class GreeterStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.SayHello = channel.unary_unary(
-                '/Greeter/SayHello',
-                request_serializer=config__pb2.HelloRequest.SerializeToString,
-                response_deserializer=config__pb2.HelloReply.FromString,
+        self.AddWorker = channel.unary_unary(
+                '/Comunicator/AddWorker',
+                request_serializer=config__pb2.Reply.SerializeToString,
+                response_deserializer=config__pb2.Reply.FromString,
                 )
-        self.SayHelloAgain = channel.unary_unary(
-                '/Greeter/SayHelloAgain',
-                request_serializer=config__pb2.HelloRequest.SerializeToString,
-                response_deserializer=config__pb2.HelloReply.FromString,
+        self.RemoveWorker = channel.unary_unary(
+                '/Comunicator/RemoveWorker',
+                request_serializer=config__pb2.RmvWorker.SerializeToString,
+                response_deserializer=config__pb2.Reply.FromString,
+                )
+        self.ListWorker = channel.unary_unary(
+                '/Comunicator/ListWorker',
+                request_serializer=config__pb2.Reply.SerializeToString,
+                response_deserializer=config__pb2.Reply.FromString,
+                )
+        self.SubmitTask = channel.unary_unary(
+                '/Comunicator/SubmitTask',
+                request_serializer=config__pb2.CreateJob.SerializeToString,
+                response_deserializer=config__pb2.Reply.FromString,
                 )
 
 
-class GreeterServicer(object):
-    """The greeting service definition.
-    """
+class ComunicatorServicer(object):
+    """Missing associated documentation comment in .proto file."""
 
-    def SayHello(self, request, context):
-        """Sends a greeting
-        """
+    def AddWorker(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def SayHelloAgain(self, request, context):
-        """Sends another greeting
-        """
+    def RemoveWorker(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListWorker(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SubmitTask(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_GreeterServicer_to_server(servicer, server):
+def add_ComunicatorServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'SayHello': grpc.unary_unary_rpc_method_handler(
-                    servicer.SayHello,
-                    request_deserializer=config__pb2.HelloRequest.FromString,
-                    response_serializer=config__pb2.HelloReply.SerializeToString,
+            'AddWorker': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddWorker,
+                    request_deserializer=config__pb2.Reply.FromString,
+                    response_serializer=config__pb2.Reply.SerializeToString,
             ),
-            'SayHelloAgain': grpc.unary_unary_rpc_method_handler(
-                    servicer.SayHelloAgain,
-                    request_deserializer=config__pb2.HelloRequest.FromString,
-                    response_serializer=config__pb2.HelloReply.SerializeToString,
+            'RemoveWorker': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveWorker,
+                    request_deserializer=config__pb2.RmvWorker.FromString,
+                    response_serializer=config__pb2.Reply.SerializeToString,
+            ),
+            'ListWorker': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListWorker,
+                    request_deserializer=config__pb2.Reply.FromString,
+                    response_serializer=config__pb2.Reply.SerializeToString,
+            ),
+            'SubmitTask': grpc.unary_unary_rpc_method_handler(
+                    servicer.SubmitTask,
+                    request_deserializer=config__pb2.CreateJob.FromString,
+                    response_serializer=config__pb2.Reply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'Greeter', rpc_method_handlers)
+            'Comunicator', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class Greeter(object):
-    """The greeting service definition.
-    """
+class Comunicator(object):
+    """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def SayHello(request,
+    def AddWorker(request,
             target,
             options=(),
             channel_credentials=None,
@@ -80,14 +107,14 @@ class Greeter(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Greeter/SayHello',
-            config__pb2.HelloRequest.SerializeToString,
-            config__pb2.HelloReply.FromString,
+        return grpc.experimental.unary_unary(request, target, '/Comunicator/AddWorker',
+            config__pb2.Reply.SerializeToString,
+            config__pb2.Reply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def SayHelloAgain(request,
+    def RemoveWorker(request,
             target,
             options=(),
             channel_credentials=None,
@@ -97,8 +124,42 @@ class Greeter(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Greeter/SayHelloAgain',
-            config__pb2.HelloRequest.SerializeToString,
-            config__pb2.HelloReply.FromString,
+        return grpc.experimental.unary_unary(request, target, '/Comunicator/RemoveWorker',
+            config__pb2.RmvWorker.SerializeToString,
+            config__pb2.Reply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListWorker(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Comunicator/ListWorker',
+            config__pb2.Reply.SerializeToString,
+            config__pb2.Reply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SubmitTask(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Comunicator/SubmitTask',
+            config__pb2.CreateJob.SerializeToString,
+            config__pb2.Reply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

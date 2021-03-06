@@ -2,14 +2,21 @@ syntax = "proto3";
 
 service Comunicator {
 
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
+  rpc AddWorker (Reply) returns (Reply) {}
+  rpc RemoveWorker (RmvWorker) returns (Reply) {}
+  rpc ListWorker (Reply) returns (Reply) {}
+  rpc SubmitTask (CreateJob) returns (Reply) {}
 }
 
-message HelloRequest {
-  string name = 1;
+message RmvWorker {
+  uint32 amount = 1;
 }
 
-message HelloReply {
+message CreateJob {
+  string programName = 1;
+  string url = 2;
+}
+
+message Reply {
   string message = 1;
 }

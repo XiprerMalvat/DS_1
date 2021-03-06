@@ -1,31 +1,35 @@
-#import click
-
-#@click.command()
-#@click.option('--option', type=click.Choice(['worker', 'job'], case_sensitive=False), help="Mode selector (worker, job)")
-#@click.option('--function', required=False, help="Function to be executed from the option")
-
-#def hello(option, function):
-#    """Simple program"""
-
-#    print(option + " " + function)
-
-#if __name__ == '__main__':
-#    hello()
-
-
+import click
 import grpc
 
-# import the generated classes
 import config_pb2
 import config_pb2_grpc
 
-# open a gRPC channel
-channel = grpc.insecure_channel('localhost:50051')
+@click.command()
+@click.option('--option', '-o', type=click.Choice(['worker', 'job'], case_sensitive=False), help="Mode selector (worker, job)")
+@click.option('--function', '-f', type=click.Choice(['create', 'delete','list','run-countwords','run-wordcount']), help="Function to be executed from the option")
+@click.option('--args', '-a', metavar='', required=False, help="Necessary arguments to execute the function (can be null)")
 
-# create a stub (client)
-stub = config_pb2_grpc.GreeterStub(channel)
+def main(option, function, args):
+    """Program main"""
 
-# make the call
-response = stub.SayHello(config_pb2.HelloRequest(name='you'))
+    channel = grpc.insecure_channel('localhost:50051')      # open a gRPC channel
+    stub = config_pb2_grpc.ComunicatorStub(channel)         # create a stub (client)
 
-print("Greeter client received: " + response.message)
+    if option == "worker":
+        if function == "create":
+            response = stub.AddWorker(config_pb2.Reply(message=""))
+            print(response.message)
+        if function == "delete":
+            response = stub.RemoveWorker(config_pb2.RmvWorker(amount=int(args)))
+            print(response.message)
+        if function == "list":
+            response = stub.ListWorker(config_pb2.Reply(message=""))
+            print(response.message)
+    elif option == "job":
+        response = stub.SubmitTask(config_pb2.CreateJob(programName=function[4:], url=args))
+        print(response.message)
+    else:
+        print("Not acceptable option")
+
+if __name__ == '__main__':
+    main()
