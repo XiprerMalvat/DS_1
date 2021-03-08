@@ -4,7 +4,11 @@ from multiprocessing import Process, Lock
 import time
 import config_pb2
 import config_pb2_grpc
+import json
+import redis
+import requests
 
+REDDIS_CONN = 0
 WORKERS = {}
 WORKER_ID = 0
 
@@ -27,18 +31,22 @@ class Comunicator(config_pb2_grpc.ComunicatorServicer):
         return config_pb2.Reply(message="Workers list: A, B, C")
 
     def SubmitTask(self, request, context):
+        send_job_to_queue(request.programName, request.url)
         return config_pb2.Reply(message="You added this task: "+request.programName+" to "+request.url)
 
 def start_worker(id):
     print(id)
     while True:
-        time.sleep(1000000)
+        packed = REDDIS_CONN.blpop(['jobsQueue'], 0)
+        to_send = json.loads(packed[1])
+        print(to_send)
 
 def terminate_worker(id):
     global WORKERS
     global WORKER_ID
 
     WORKERS[id].terminate()
+    del WORKERS[id]
 
 def create_worker():
     global WORKERS
@@ -48,23 +56,34 @@ def create_worker():
     proc.start()
     WORKERS[WORKER_ID] = proc
 
+
     WORKER_ID += 1
 
-if __name__ == '__main__':
-    # create a gRPC server
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+def send_job_to_queue(program, url):
+   global REDDIS_CONN
 
-    # use the generated function `add_CalculatorServicer_to_server`
-    # to add the defined class to the server
+   data = { 
+        'program': program,
+        'url': url,
+        'time': time.time()
+    }
+   REDDIS_CONN.rpush('jobsQueue', json.dumps(data))
+
+def request_file(url):
+    resp = requests.get(url)
+    return(resp.text)
+
+if __name__ == '__main__':
+
+    REDDIS_CONN = redis.Redis()
+
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     config_pb2_grpc.add_ComunicatorServicer_to_server(Comunicator(), server)
 
-    # listen on port 50051
     print('Starting server. Listening on port 50051.')
     server.add_insecure_port('[::]:50051')
     server.start()
 
-    # since server.start() will not block,
-    # a sleep-loop is added to keep alive
     try:
         while True:
             time.sleep(86400)

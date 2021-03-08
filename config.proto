@@ -2,21 +2,21 @@ syntax = "proto3";
 
 service Comunicator {
 
-  rpc AddWorker (Reply) returns (Reply) {}
-  rpc RemoveWorker (RmvWorker) returns (Reply) {}
-  rpc ListWorker (Reply) returns (Reply) {}
-  rpc SubmitTask (CreateJob) returns (Reply) {}
+  rpc AddWorker (Message) returns (Message) {}
+  rpc RemoveWorker (Number) returns (Message) {}
+  rpc ListWorker (Message) returns (Message) {}
+  rpc SubmitTask (Job) returns (Message) {}
 }
 
-message RmvWorker {
+message Number {
   uint32 amount = 1;
 }
 
-message CreateJob {
+message Job {
   string programName = 1;
   string url = 2;
 }
 
-message Reply {
+message Message {
   string message = 1;
 }

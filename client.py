@@ -5,8 +5,8 @@ import config_pb2
 import config_pb2_grpc
 
 @click.command()
-@click.option('--option', '-o', type=click.Choice(['worker', 'job'], case_sensitive=False), help="Mode selector (worker, job)")
-@click.option('--function', '-f', type=click.Choice(['create', 'delete','list','run-countwords','run-wordcount']), help="Function to be executed from the option")
+@click.option('--option', '-o', required=True, type=click.Choice(['worker', 'job'], case_sensitive=False), help="Mode selector (worker, job)")
+@click.option('--function', '-f', required=True, type=click.Choice(['create', 'delete','list','run-countwords','run-wordcount']), help="Function to be executed from the option")
 @click.option('--args', '-a', metavar='', required=False, help="Necessary arguments to execute the function (can be null)")
 
 def main(option, function, args):
