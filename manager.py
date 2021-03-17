@@ -24,19 +24,21 @@ class Comunicator(config_pb2_grpc.ComunicatorServicer):
         return config_pb2.Message(message="Workers list: "+worker.WORKERS)
 
     def SubmitTask(self, request, context):
+        global REQUEST_ID
+
         REQUEST_ID += 1
-        # Create return queue
         if len(request.url.split(",")) > 1:
             msg = ""
-            # Create add queue
             for url in request.url[1:-1].split(","):
                 result = redisFunc.send_job_to_queue('jobsQueue', request.programName, url, "request"+REQUEST_ID, "result"+REQUEST_ID, len(request.url.split(",")))
                 msg = msg+"You added this task: "+request.programName+" to "+url+"\n Result: "+result+"\n"
         else:
             result = redisFunc.send_job_to_queue('jobsQueue', request.programName, url)
-        # Wait return queue
+        
+        data = redisFunc.wait_element_from_queue("result"+REQUEST_ID)
         REQUEST_ID -= 1
-        return config_pb2.Message(message="You added this task: "+request.programName+" to "+url+"\n Result: "+result)
+
+        return config_pb2.Message(message=data['value'])
 
 if __name__ == '__main__':
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
@@ -45,6 +47,7 @@ if __name__ == '__main__':
     print('Starting server. Listening on port 50051.')
     server.add_insecure_port('[::]:50051')
     server.start()
+    worker.create_worker()
 
     try:
         while True:

@@ -5,16 +5,41 @@ import time
 REDIS_CONN =  redis.Redis()
 
 def send_job_to_queue(queue, program, url, queueId, resultQueue, fragments):
-   data = { 
+    data = { 
         'program': program,
         'url': url,
-        'queue_id': queueId,
+        'queue': queueId,
         'result_queue': resultQueue,
-        'fragments' : fragments, 
-        'time': time.time()
+        'fragments' : fragments
     }
-   REDIS_CONN.rpush(queue, json.dumps(data))
+    REDIS_CONN.rpush(queue, json.dumps(data))
 
-def get_job_from_queue(queue):
+def send_element_to_add(queue, program, resultQueue, fragments, value):
+    data = { 
+        'program': program,
+        'queue': queue,
+        'result_queue': resultQueue,
+        'fragments' : fragments,
+        'value': value
+    }
+    REDIS_CONN.rpush(queue, json.dumps(data))
+
+def notify_adder_worker(queue, queueId):
+    data = { 
+        'queue': queueId
+    }
+    REDIS_CONN.rpush(queue, json.dumps(data))
+
+def send_response(queue, value):
+    data = { 
+        'value': value
+    }
+    REDIS_CONN.rpush(queue, json.dumps(data))
+
+def wait_element_from_queue(queue):
     packed = REDIS_CONN.blpop([queue], 0)
+    return json.loads(packed[1])
+
+def get_element_from_queue(queue):
+    packed = REDIS_CONN.lpop(queue)
     return json.loads(packed[1])

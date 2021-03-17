@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 service Comunicator {
-
   rpc AddWorker (Message) returns (Message) {}
   rpc RemoveWorker (Number) returns (Message) {}
   rpc ListWorker (Message) returns (Message) {}
