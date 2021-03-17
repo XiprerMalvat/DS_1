@@ -19,22 +19,22 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0c\x63onfig.proto\"\x1b\n\tRmvWorker\x12\x0e\n\x06\x61mount\x18\x01 \x01(\r\"-\n\tCreateJob\x12\x13\n\x0bprogramName\x18\x01 \x01(\t\x12\x0b\n\x03url\x18\x02 \x01(\t\"\x18\n\x05Reply\x12\x0f\n\x07message\x18\x01 \x01(\t2\x96\x01\n\x0b\x43omunicator\x12\x1d\n\tAddWorker\x12\x06.Reply\x1a\x06.Reply\"\x00\x12$\n\x0cRemoveWorker\x12\n.RmvWorker\x1a\x06.Reply\"\x00\x12\x1e\n\nListWorker\x12\x06.Reply\x1a\x06.Reply\"\x00\x12\"\n\nSubmitTask\x12\n.CreateJob\x1a\x06.Reply\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x0c\x63onfig.proto\"\x18\n\x06Number\x12\x0e\n\x06\x61mount\x18\x01 \x01(\r\"\'\n\x03Job\x12\x13\n\x0bprogramName\x18\x01 \x01(\t\x12\x0b\n\x03url\x18\x02 \x01(\t\"\x1a\n\x07Message\x12\x0f\n\x07message\x18\x01 \x01(\t2\x99\x01\n\x0b\x43omunicator\x12!\n\tAddWorker\x12\x08.Message\x1a\x08.Message\"\x00\x12#\n\x0cRemoveWorker\x12\x07.Number\x1a\x08.Message\"\x00\x12\"\n\nListWorker\x12\x08.Message\x1a\x08.Message\"\x00\x12\x1e\n\nSubmitTask\x12\x04.Job\x1a\x08.Message\"\x00\x62\x06proto3'
 )
 
 
 
 
-_RMVWORKER = _descriptor.Descriptor(
-  name='RmvWorker',
-  full_name='RmvWorker',
+_NUMBER = _descriptor.Descriptor(
+  name='Number',
+  full_name='Number',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='amount', full_name='RmvWorker.amount', index=0,
+      name='amount', full_name='Number.amount', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -53,27 +53,27 @@ _RMVWORKER = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=16,
-  serialized_end=43,
+  serialized_end=40,
 )
 
 
-_CREATEJOB = _descriptor.Descriptor(
-  name='CreateJob',
-  full_name='CreateJob',
+_JOB = _descriptor.Descriptor(
+  name='Job',
+  full_name='Job',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='programName', full_name='CreateJob.programName', index=0,
+      name='programName', full_name='Job.programName', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='url', full_name='CreateJob.url', index=1,
+      name='url', full_name='Job.url', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -91,21 +91,21 @@ _CREATEJOB = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=45,
-  serialized_end=90,
+  serialized_start=42,
+  serialized_end=81,
 )
 
 
-_REPLY = _descriptor.Descriptor(
-  name='Reply',
-  full_name='Reply',
+_MESSAGE = _descriptor.Descriptor(
+  name='Message',
+  full_name='Message',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='message', full_name='Reply.message', index=0,
+      name='message', full_name='Message.message', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -123,35 +123,35 @@ _REPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=92,
-  serialized_end=116,
+  serialized_start=83,
+  serialized_end=109,
 )
 
-DESCRIPTOR.message_types_by_name['RmvWorker'] = _RMVWORKER
-DESCRIPTOR.message_types_by_name['CreateJob'] = _CREATEJOB
-DESCRIPTOR.message_types_by_name['Reply'] = _REPLY
+DESCRIPTOR.message_types_by_name['Number'] = _NUMBER
+DESCRIPTOR.message_types_by_name['Job'] = _JOB
+DESCRIPTOR.message_types_by_name['Message'] = _MESSAGE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-RmvWorker = _reflection.GeneratedProtocolMessageType('RmvWorker', (_message.Message,), {
-  'DESCRIPTOR' : _RMVWORKER,
+Number = _reflection.GeneratedProtocolMessageType('Number', (_message.Message,), {
+  'DESCRIPTOR' : _NUMBER,
   '__module__' : 'config_pb2'
-  # @@protoc_insertion_point(class_scope:RmvWorker)
+  # @@protoc_insertion_point(class_scope:Number)
   })
-_sym_db.RegisterMessage(RmvWorker)
+_sym_db.RegisterMessage(Number)
 
-CreateJob = _reflection.GeneratedProtocolMessageType('CreateJob', (_message.Message,), {
-  'DESCRIPTOR' : _CREATEJOB,
+Job = _reflection.GeneratedProtocolMessageType('Job', (_message.Message,), {
+  'DESCRIPTOR' : _JOB,
   '__module__' : 'config_pb2'
-  # @@protoc_insertion_point(class_scope:CreateJob)
+  # @@protoc_insertion_point(class_scope:Job)
   })
-_sym_db.RegisterMessage(CreateJob)
+_sym_db.RegisterMessage(Job)
 
-Reply = _reflection.GeneratedProtocolMessageType('Reply', (_message.Message,), {
-  'DESCRIPTOR' : _REPLY,
+Message = _reflection.GeneratedProtocolMessageType('Message', (_message.Message,), {
+  'DESCRIPTOR' : _MESSAGE,
   '__module__' : 'config_pb2'
-  # @@protoc_insertion_point(class_scope:Reply)
+  # @@protoc_insertion_point(class_scope:Message)
   })
-_sym_db.RegisterMessage(Reply)
+_sym_db.RegisterMessage(Message)
 
 
 
@@ -162,16 +162,16 @@ _COMUNICATOR = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=119,
-  serialized_end=269,
+  serialized_start=112,
+  serialized_end=265,
   methods=[
   _descriptor.MethodDescriptor(
     name='AddWorker',
     full_name='Comunicator.AddWorker',
     index=0,
     containing_service=None,
-    input_type=_REPLY,
-    output_type=_REPLY,
+    input_type=_MESSAGE,
+    output_type=_MESSAGE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -180,8 +180,8 @@ _COMUNICATOR = _descriptor.ServiceDescriptor(
     full_name='Comunicator.RemoveWorker',
     index=1,
     containing_service=None,
-    input_type=_RMVWORKER,
-    output_type=_REPLY,
+    input_type=_NUMBER,
+    output_type=_MESSAGE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -190,8 +190,8 @@ _COMUNICATOR = _descriptor.ServiceDescriptor(
     full_name='Comunicator.ListWorker',
     index=2,
     containing_service=None,
-    input_type=_REPLY,
-    output_type=_REPLY,
+    input_type=_MESSAGE,
+    output_type=_MESSAGE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -200,8 +200,8 @@ _COMUNICATOR = _descriptor.ServiceDescriptor(
     full_name='Comunicator.SubmitTask',
     index=3,
     containing_service=None,
-    input_type=_CREATEJOB,
-    output_type=_REPLY,
+    input_type=_JOB,
+    output_type=_MESSAGE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

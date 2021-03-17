@@ -1,6 +1,5 @@
 import click
 import grpc
-
 import config_pb2
 import config_pb2_grpc
 
@@ -17,16 +16,16 @@ def main(option, function, args):
 
     if option == "worker":
         if function == "create":
-            response = stub.AddWorker(config_pb2.Reply(message=""))
+            response = stub.AddWorker(config_pb2.Message(message=""))
             print(response.message)
         if function == "delete":
-            response = stub.RemoveWorker(config_pb2.RmvWorker(amount=int(args)))
+            response = stub.RemoveWorker(config_pb2.Number(amount=int(args)))
             print(response.message)
         if function == "list":
-            response = stub.ListWorker(config_pb2.Reply(message=""))
+            response = stub.ListWorker(config_pb2.Message(message=""))
             print(response.message)
     elif option == "job":
-        response = stub.SubmitTask(config_pb2.CreateJob(programName=function[4:], url=args))
+        response = stub.SubmitTask(config_pb2.Job(programName=function[4:], url=args))
         print(response.message)
     else:
         print("Not acceptable option")

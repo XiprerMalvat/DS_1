@@ -16,23 +16,23 @@ class ComunicatorStub(object):
         """
         self.AddWorker = channel.unary_unary(
                 '/Comunicator/AddWorker',
-                request_serializer=config__pb2.Reply.SerializeToString,
-                response_deserializer=config__pb2.Reply.FromString,
+                request_serializer=config__pb2.Message.SerializeToString,
+                response_deserializer=config__pb2.Message.FromString,
                 )
         self.RemoveWorker = channel.unary_unary(
                 '/Comunicator/RemoveWorker',
-                request_serializer=config__pb2.RmvWorker.SerializeToString,
-                response_deserializer=config__pb2.Reply.FromString,
+                request_serializer=config__pb2.Number.SerializeToString,
+                response_deserializer=config__pb2.Message.FromString,
                 )
         self.ListWorker = channel.unary_unary(
                 '/Comunicator/ListWorker',
-                request_serializer=config__pb2.Reply.SerializeToString,
-                response_deserializer=config__pb2.Reply.FromString,
+                request_serializer=config__pb2.Message.SerializeToString,
+                response_deserializer=config__pb2.Message.FromString,
                 )
         self.SubmitTask = channel.unary_unary(
                 '/Comunicator/SubmitTask',
-                request_serializer=config__pb2.CreateJob.SerializeToString,
-                response_deserializer=config__pb2.Reply.FromString,
+                request_serializer=config__pb2.Job.SerializeToString,
+                response_deserializer=config__pb2.Message.FromString,
                 )
 
 
@@ -68,23 +68,23 @@ def add_ComunicatorServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'AddWorker': grpc.unary_unary_rpc_method_handler(
                     servicer.AddWorker,
-                    request_deserializer=config__pb2.Reply.FromString,
-                    response_serializer=config__pb2.Reply.SerializeToString,
+                    request_deserializer=config__pb2.Message.FromString,
+                    response_serializer=config__pb2.Message.SerializeToString,
             ),
             'RemoveWorker': grpc.unary_unary_rpc_method_handler(
                     servicer.RemoveWorker,
-                    request_deserializer=config__pb2.RmvWorker.FromString,
-                    response_serializer=config__pb2.Reply.SerializeToString,
+                    request_deserializer=config__pb2.Number.FromString,
+                    response_serializer=config__pb2.Message.SerializeToString,
             ),
             'ListWorker': grpc.unary_unary_rpc_method_handler(
                     servicer.ListWorker,
-                    request_deserializer=config__pb2.Reply.FromString,
-                    response_serializer=config__pb2.Reply.SerializeToString,
+                    request_deserializer=config__pb2.Message.FromString,
+                    response_serializer=config__pb2.Message.SerializeToString,
             ),
             'SubmitTask': grpc.unary_unary_rpc_method_handler(
                     servicer.SubmitTask,
-                    request_deserializer=config__pb2.CreateJob.FromString,
-                    response_serializer=config__pb2.Reply.SerializeToString,
+                    request_deserializer=config__pb2.Job.FromString,
+                    response_serializer=config__pb2.Message.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -108,8 +108,8 @@ class Comunicator(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Comunicator/AddWorker',
-            config__pb2.Reply.SerializeToString,
-            config__pb2.Reply.FromString,
+            config__pb2.Message.SerializeToString,
+            config__pb2.Message.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -125,8 +125,8 @@ class Comunicator(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Comunicator/RemoveWorker',
-            config__pb2.RmvWorker.SerializeToString,
-            config__pb2.Reply.FromString,
+            config__pb2.Number.SerializeToString,
+            config__pb2.Message.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -142,8 +142,8 @@ class Comunicator(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Comunicator/ListWorker',
-            config__pb2.Reply.SerializeToString,
-            config__pb2.Reply.FromString,
+            config__pb2.Message.SerializeToString,
+            config__pb2.Message.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -159,7 +159,7 @@ class Comunicator(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Comunicator/SubmitTask',
-            config__pb2.CreateJob.SerializeToString,
-            config__pb2.Reply.FromString,
+            config__pb2.Job.SerializeToString,
+            config__pb2.Message.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
