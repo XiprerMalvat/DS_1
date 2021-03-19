@@ -1,3 +1,5 @@
+import redis
+from redis.connection import SERVER_CLOSED_CONNECTION_ERROR
 import grpc
 from concurrent import futures
 import time
@@ -41,17 +43,20 @@ class Comunicator(config_pb2_grpc.ComunicatorServicer):
         return config_pb2.Message(message=str(data['value']))
 
 if __name__ == '__main__':
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    config_pb2_grpc.add_ComunicatorServicer_to_server(Comunicator(), server)
-
-    redisFunc.REDIS_CONN.flushall()
-    print('Starting server. Listening on port 50051.')
-    server.add_insecure_port('[::]:50051')
-    server.start()
-    worker.create_worker()
-
     try:
-        while True:
-            time.sleep(86400)
-    except KeyboardInterrupt:
-        server.stop(0)
+        server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+        config_pb2_grpc.add_ComunicatorServicer_to_server(Comunicator(), server)
+
+        redisFunc.REDIS_CONN.flushall()
+        print('Starting server. Listening on port 50051.')
+        server.add_insecure_port('[::]:50051')
+        server.start()
+        worker.create_worker()
+
+        try:
+            while True:
+                time.sleep(86400)
+        except KeyboardInterrupt:
+            server.stop(0)
+    except redis.exceptions.RedisError:
+        print("Redis Error:\n\tCould not establish connection with Redis server.")
