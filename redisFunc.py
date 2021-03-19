@@ -1,6 +1,7 @@
 import json
 import redis
 import time
+import ast
 
 REDIS_CONN =  redis.Redis()
 
@@ -37,9 +38,13 @@ def send_response(queue, value):
     REDIS_CONN.rpush(queue, json.dumps(data))
 
 def wait_element_from_queue(queue):
-    packed = REDIS_CONN.blpop([queue], 0)
+    packed = REDIS_CONN.blpop(queue, 0)
     return json.loads(packed[1])
 
 def get_element_from_queue(queue):
     packed = REDIS_CONN.lpop(queue)
-    return json.loads(packed[1])
+    
+    if packed == None:
+        return None
+    else:
+        return ast.literal_eval(packed.decode('utf-8'))

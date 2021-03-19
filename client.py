@@ -25,7 +25,7 @@ def main(option, function, args):
             response = stub.ListWorker(config_pb2.Message(message=""))
             print(response.message)
     elif option == "job":
-        response = stub.SubmitTask(config_pb2.Job(programName=function[4:], url=args))
+        response = stub.SubmitTask(config_pb2.Job(programName=function[4:], url=args[1:-1]))
         print(response.message)
     else:
         print("Not acceptable option")
