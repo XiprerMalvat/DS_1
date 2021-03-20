@@ -6,14 +6,15 @@ import redisFunc
 import countWords
 import wordCount
 import requests
+import time
 
 WORKERS = {}
 WORKER_ID = 0
 
 def start_worker(id):
-    print(id)
-    try:
-        while True:
+    print("Worker created, id = " + str(id))
+    while True:
+        try:
             data = redisFunc.wait_element_from_queue('jobsQueue')
             if data['program'] == 'countwords':
                 result = countWords.count_words(request_file(data['url']))
@@ -24,14 +25,13 @@ def start_worker(id):
             else:
                 redisFunc.send_element_to_add(data['queue'], data['program'], data['result_queue'], data['fragments'], result)
                 redisFunc.notify_adder_worker('adderQueue', data['queue'])
-    except redis.exceptions.ConnectionError:
-        print("eeeeeee1")
+        except redis.exceptions.ConnectionError:
+            time.sleep(1)
 
 def start_adder_worker(id):
-    print(id)
-    i = 0
-    try:
-        while True:
+    print("Worker created, id = " + str(id))
+    while True:
+        try:
             notification = redisFunc.wait_element_from_queue('adderQueue')
             data1 = redisFunc.get_element_from_queue(notification['queue'])
             data2 = redisFunc.get_element_from_queue(notification['queue'])
@@ -46,8 +46,8 @@ def start_adder_worker(id):
                     redisFunc.send_response(data1['result_queue'], newValue)
                 else:
                     redisFunc.send_element_to_add(data1['queue'], data1['program'], data1['result_queue'], data1['fragments']-1, newValue)
-    except redis.exceptions.ConnectionError:
-        print("eeeeeee2")
+        except redis.exceptions.ConnectionError:
+            time.sleep(1)
 
 
 def terminate_worker():
@@ -57,6 +57,7 @@ def terminate_worker():
     if WORKER_ID != 0:
         WORKERS[WORKER_ID-1].terminate()
         WORKER_ID -= 1
+        print("Worker terminated, id = " + str(WORKER_ID))
         del WORKERS[WORKER_ID-1]
 
 def create_worker():

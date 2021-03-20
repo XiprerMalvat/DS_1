@@ -7,6 +7,8 @@ import config_pb2
 import config_pb2_grpc
 import worker
 import redisFunc
+import signal
+import sys
 
 REQUEST_ID = 0
 
@@ -42,7 +44,12 @@ class Comunicator(config_pb2_grpc.ComunicatorServicer):
         
         return config_pb2.Message(message=str(data['value']))
 
+def signal_handler(sig, frame):
+    print('Terminating manager...')
+    exit(0)
+
 if __name__ == '__main__':
+    signal.signal(signal.SIGINT, signal_handler)
     try:
         server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
         config_pb2_grpc.add_ComunicatorServicer_to_server(Comunicator(), server)
