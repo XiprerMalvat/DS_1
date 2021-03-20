@@ -35,17 +35,18 @@ def start_adder_worker(id):
             notification = redisFunc.wait_element_from_queue('adderQueue')
             data1 = redisFunc.get_element_from_queue(notification['queue'])
             data2 = redisFunc.get_element_from_queue(notification['queue'])
-            if data2 == None:
-                redisFunc.send_element_to_add(data1['queue'], data1['program'], data1['result_queue'], data1['fragments'], data1['value'])
-            else:
-                if data1['program'] == "countwords":
-                    newValue = data1['value'] + data2['value']
+            if data1 != None:
+                if data2 == None:
+                    redisFunc.send_element_to_add(data1['queue'], data1['program'], data1['result_queue'], data1['fragments'], data1['value'])
                 else:
-                    newValue = dict(Counter(data1['value'])+Counter(data2['value']))
-                if data1['fragments'] -1 == 1:
-                    redisFunc.send_response(data1['result_queue'], newValue)
-                else:
-                    redisFunc.send_element_to_add(data1['queue'], data1['program'], data1['result_queue'], data1['fragments']-1, newValue)
+                    if data1['program'] == "countwords":
+                        newValue = data1['value'] + data2['value']
+                    else:
+                        newValue = dict(Counter(data1['value'])+Counter(data2['value']))
+                    if data1['fragments'] -1 == 1:
+                        redisFunc.send_response(data1['result_queue'], newValue)
+                    else:
+                        redisFunc.send_element_to_add(data1['queue'], data1['program'], data1['result_queue'], data1['fragments']-1, newValue)
         except redis.exceptions.ConnectionError:
             time.sleep(1)
 

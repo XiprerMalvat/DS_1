@@ -45,7 +45,7 @@ class Comunicator(config_pb2_grpc.ComunicatorServicer):
         return config_pb2.Message(message=str(data['value']))
 
 def signal_handler(sig, frame):
-    print('Terminating manager...')
+    print('Terminating process...')
     exit(0)
 
 if __name__ == '__main__':
